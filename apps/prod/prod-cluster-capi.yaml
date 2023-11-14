@@ -1,0 +1,19 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+  name: prod-cluster
+  namespace: argocd
+spec:
+  destination:
+    name: in-cluster
+    namespace: default
+  project: default
+  source:
+    path: helm-capi-gcp
+    repoURL: https://github.com/mekaan/argocd-clusterapi-autoscaler.git
+    helm:
+      valueFiles:
+      - values.yaml
+    targetRevision: HEAD
